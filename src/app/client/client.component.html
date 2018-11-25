@@ -16,16 +16,19 @@
       <span class="mat-card" style="padding:10px;">IM SUPERUSER</span>
   </span>
 </div>
-<div *ngIf = "isAdmin || isUser">
+<div>
   
 </div>
-<div>
+<div *ngIf = "isAdmin || isUser">
   <div class="row example-container">
     <mat-form-field appearance="outline">
       <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      <input matInput [(ngModel)]="filter" placeholder="Filter">
       <mat-hint>Filter table</mat-hint>
     </mat-form-field>
+  </div>
+  <div class="buton-container">
+    <button mat-raised-button color="basic" (click)="applyFilter($event.target.value)">Apply</button>
   </div>
   <table mat-table
         [dataSource]="dataSource" multiTemplateDataRows
@@ -53,7 +56,6 @@
         </div>
       </td>
     </ng-container>
-
     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
     <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
         class="example-element-row"

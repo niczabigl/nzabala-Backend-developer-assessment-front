@@ -1,5 +1,7 @@
 import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { Policy } from '../model/policy';
+import { Client } from '../model/client';
+import { Userpolicies } from '../model/dto/userpolicies';
 import { PolicyService } from '../services/policy.service';
 import { ClientService } from '../services/client.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -19,67 +21,83 @@ import { MatTableDataSource } from '@angular/material';
 })
 export class PolicyComponent implements OnInit {
 
+  isPolicy : boolean;
   isAdmin : boolean;
   isUser : boolean;
   isSuperUser : boolean;
-
-  dataSource : MatTableDataSource<Policy>;
+  filter : string;
+  dataSource : any;
   fullDataSource : MatTableDataSource<Policy>;
   dataSourceFiltered : MatTableDataSource<Policy>;
 
-  columnsToDisplay = ['id', 'inceptionDate', 'clientId'];
-  expandedElement: Policy;
+  columnsToDisplay : Array<string>;
+  expandedElement: any;
 
-  constructor(private policyService : PolicyService, private clientService : ClientService) { }
+  constructor(private policyService : PolicyService) { }
 
   ngOnInit() {
+    this.isPolicy = true;
     this.isAdmin = false;
     this.isUser = false;
     this.isSuperUser = false;
-    this.policyService.getAllPolicies().subscribe(
-      (data:any) =>
-      {
-        this.fullDataSource = new MatTableDataSource(data.context.entity);
-      }
-    )
+    // this.policyService.getAllPolicies().subscribe(
+    //   (data:any) =>
+    //   {
+    //     this.fullDataSource = new MatTableDataSource(data.context.entity);
+    //   }
+    // )
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  applyFiltergetUserDataFilteredByPolicyId() {
+    this.getUserDataFilteredByPolicyId(this.filter);
+  }
+
+  applyFiltergetUserPoliciesByUserName() {
+    this.getUserPoliciesByUserName(this.filter);
   }
 
   setUser(){
     this.isUser = !this.isUser;
     if(this.isAdmin == true && this.isUser == true){
       this.isSuperUser = true;
-      this.dataSource = this.fullDataSource;
     }else{
       this.isSuperUser = false;
-      this.dataSource = this.dataSourceFiltered;
     }
   }
   setAdmin(){
     this.isAdmin = !this.isAdmin;
     if(this.isAdmin == true && this.isUser == true){
       this.isSuperUser = true;
-      this.dataSource = this.fullDataSource;
     }else{
       this.isSuperUser = false;
-      this.dataSource = this.dataSourceFiltered;
     }
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if(changes.isAdmin.currentValue == true && changes.isUser.currentValue == true){
       this.isSuperUser = true;
-      this.dataSource = this.fullDataSource;
     }
   }
 
-  getUserDataFilteredByUserId(id : string){
+  getUserDataFilteredByPolicyId(id : string){
     this.policyService.getClientByPolicyId(id).subscribe(
     (data:any) => {
-      this.dataSourceFiltered = new MatTableDataSource(data.context.entity);
+      this.dataSource = new MatTableDataSource<Client>(data.context.entity);
+      console.log(JSON.stringify(this.dataSource.filteredData));
+      this.expandedElement = Client;
+      this.isPolicy = false;
+      this.columnsToDisplay = ['name', 'email'];
+    });
+  }
+
+  getUserPoliciesByUserName(username : string){
+    this.policyService.getUserPoliciesByUserName(username).subscribe(
+    (data:any) => {
+      this.dataSource = new MatTableDataSource<Userpolicies>(data.context.entity);
+      console.log(JSON.stringify(this.dataSource.filteredData));
+      this.expandedElement = Policy;
+      this.isPolicy = true;
+      this.columnsToDisplay = [ 'userId', 'userName'];
     });
   }
 

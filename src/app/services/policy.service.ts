@@ -15,10 +15,10 @@ export class PolicyService {
   }
 
   public getUserPoliciesByUserName(userName : string){
-    return this.http.get(AppConfig.API_ENDPOINT+'policy/'+userName);
+    return this.http.get(AppConfig.API_ENDPOINT+'policies/username/'+userName);
   }
 
   public getClientByPolicyId(id : string){
-    return this.http.get(AppConfig.API_ENDPOINT+'policy/'+id);
+    return this.http.get(AppConfig.API_ENDPOINT+'policies/policy/'+id);
   }
 }

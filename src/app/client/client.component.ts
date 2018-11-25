@@ -28,6 +28,8 @@ export class ClientComponent implements OnInit {
   columnsToDisplay = ['name', 'email'];
   expandedElement: Client;
 
+  filter : string;
+
   constructor(private clientService : ClientService) { }
 
   ngOnInit() {
@@ -41,9 +43,9 @@ export class ClientComponent implements OnInit {
     // )
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter() {
     //this.dataSource.filter = filterValue.trim().toLowerCase();
-    this.getUserDataFilteredByUserId(filterValue);
+    this.getUserDataFilteredByUserId(this.filter);
   }
 
   setUser(){
@@ -72,8 +74,8 @@ export class ClientComponent implements OnInit {
   getUserDataFilteredByUserId(id : string){
     this.clientService.getDataFilteredByUserId(id).subscribe(
     (data:any) => {
-      this.dataSourceFiltered = new MatTableDataSource(data.context.entity);
-    });
+      this.dataSource = new MatTableDataSource(data.context.entity);
+    })
   }
 //   Get user data filtered by user id -> Can be accessed by users with role "users"
 // and "admin"
