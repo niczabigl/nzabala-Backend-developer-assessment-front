@@ -1,0 +1,36 @@
+.content-container {
+    background-color: #fafafa;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 56px;
+    padding: 0 16px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: space-between;
+    margin-bottom: 10px; 
+}
+
+
+.model-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: space-between;
+    margin-bottom: 10px;
+    padding-left: 200px; 
+    padding-right: 200px;
+}
+
+.model-container mat-card{
+    margin:20px;
+    width: 150px;
+}
+.buton-container{
+    margin: 20px;
+}
+

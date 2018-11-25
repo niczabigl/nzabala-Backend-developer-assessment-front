@@ -1,10 +1,31 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { ClientComponent } from './client/client.component';
+import { PolicyComponent } from './policy/policy.component';
+import { MenuComponent } from './menu/menu.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+    {
+        path: 'menu',
+        component: MenuComponent,
+    },
+    {
+        path: '',
+        redirectTo: '/menu',
+        pathMatch: 'full' 
+    },
+    {
+        path: 'clients',
+        component: ClientComponent
+    },
+    {
+        path: 'policies',
+        component: PolicyComponent
+    }
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class RoutingModule { }

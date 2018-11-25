@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'nzabala-Backend-developer-assessment-front';
+  goHome():void{
+    window.location.pathname="menu";
+  }
 }

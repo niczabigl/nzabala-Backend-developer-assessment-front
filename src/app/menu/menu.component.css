@@ -1,0 +1,24 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.policy-header-image {
+    background-image: url('http://simpleicon.com/wp-content/uploads/note-9.png');
+    background-size: cover;
+}
+.user-header-image {
+    background-image: url('http://simpleicon.com/wp-content/uploads/user1.png');
+    background-size: cover;
+}
+mat-card{
+    max-width: 500px;
+}
+mat-card img {
+    min-height: 400px;
+    max-height: 400px;
+}
+.selected {
+    background-color: #3f51b5;
+    opacity: 0.5;
+}
