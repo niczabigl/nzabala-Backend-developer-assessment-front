@@ -3,8 +3,14 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.6.
 
 ## Development server
-Install node.js first.
+Install node.js first at `https://nodejs.org/es/download/`
+Git Clone nzabala-backend-developer-assessment-front at `https://github.com/niczabigl/nzabala-Backend-developer-assessment-front`
+cd into folder project.
+
 Run `npm install` , and `ng update`.
+
+Go to `nzabala-Backend-developer-assessment-front\src\app\app-config.ts` and change this url, for que backend server app deployed, something like `http://localhost:8080/axa/` if you used as default path and default tomcat deploy.
+
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
