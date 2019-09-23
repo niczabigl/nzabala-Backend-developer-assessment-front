@@ -1,8 +1,10 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit, SimpleChanges, Output } from '@angular/core';
 import { Client } from '../model/client';
 import { ClientService } from '../services/client.service';
+import { PubSubService } from '../services/pubsub.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatTableDataSource } from '@angular/material';
+import { Notificacion, NotificacionType } from '../model/notification'
 
 @Component({
   selector: 'app-client',
@@ -25,26 +27,30 @@ export class ClientComponent implements OnInit {
   fullDataSource : MatTableDataSource<Client>;
   dataSourceFiltered : MatTableDataSource<Client>;
 
-  columnsToDisplay = ['name', 'email'];
+  columnsToDisplay = ['cliname', 'cliemail', 'clirole'];
   expandedElement: Client;
 
   filter : string;
 
-  constructor(private clientService : ClientService) { }
+  @Output()
+  notification : Notificacion;
+
+  constructor(private pubsub : PubSubService, private clientService : ClientService) { }
 
   ngOnInit() {
     this.isAdmin = false;
     this.isUser = false;
-    // this.clientService.getAllClients().subscribe(
-    //   (data:any) =>
-    //   {
-    //     this.fullDataSource = new MatTableDataSource(data.context.entity);
-    //   }
-    // )
+    this.clientService.getAllClients().subscribe(
+      (data:any) =>
+      {
+        console.log('DATA', data)
+        this.fullDataSource = new MatTableDataSource(data.entity);
+      }
+    )
   }
 
   applyFilter() {
-    //this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.filter = this.filter ? this.filter.trim().toLowerCase() : '';
     this.getUserDataFilteredByUserId(this.filter);
   }
 
@@ -74,7 +80,14 @@ export class ClientComponent implements OnInit {
   getUserDataFilteredByUserId(id : string){
     this.clientService.getDataFilteredByUserId(id).subscribe(
     (data:any) => {
-      this.dataSource = new MatTableDataSource(data.context.entity);
+      if (!data || data.length === 0 ) {
+        //this.notification = new Notificacion('No items found', NotificacionType.ERROR);
+        this.pubsub.emit('showSnackbar', 'No items found', NotificacionType.ERROR)
+      } else {
+        this.dataSource = new MatTableDataSource(data);
+        //this.notification = new Notificacion(`Items found ${data.entity.length}`, NotificacionType.INFO);
+        this.pubsub.emit('showSnackbar', `Items found ${data.length}`, NotificacionType.SUCCESS)
+      }
     })
   }
 //   Get user data filtered by user id -> Can be accessed by users with role "users"

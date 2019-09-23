@@ -40,20 +40,20 @@ export class PolicyComponent implements OnInit {
     this.isAdmin = false;
     this.isUser = false;
     this.isSuperUser = false;
-    // this.policyService.getAllPolicies().subscribe(
-    //   (data:any) =>
-    //   {
-    //     this.fullDataSource = new MatTableDataSource(data.context.entity);
-    //   }
-    // )
+    this.policyService.getAllPolicies().subscribe(
+      (data:any) =>
+      {
+        this.fullDataSource = new MatTableDataSource(data);
+      }
+    )
   }
 
   applyFiltergetUserDataFilteredByPolicyId() {
-    this.getUserDataFilteredByPolicyId(this.filter);
+    this.filter ? this.getUserDataFilteredByPolicyId(this.filter) : false;
   }
 
   applyFiltergetUserPoliciesByUserName() {
-    this.getUserPoliciesByUserName(this.filter);
+    this.filter ? this.getUserPoliciesByUserName(this.filter) : false;
   }
 
   setUser(){
@@ -82,18 +82,19 @@ export class PolicyComponent implements OnInit {
   getUserDataFilteredByPolicyId(id : string){
     this.policyService.getClientByPolicyId(id).subscribe(
     (data:any) => {
-      this.dataSource = new MatTableDataSource<Client>(data.context.entity);
+      console.log(data)
+      this.dataSource = new MatTableDataSource<Client>(data);
       console.log(JSON.stringify(this.dataSource.filteredData));
       this.expandedElement = Client;
       this.isPolicy = false;
-      this.columnsToDisplay = ['name', 'email'];
+      this.columnsToDisplay = ['cliname', 'cliemail'];
     });
   }
 
   getUserPoliciesByUserName(username : string){
     this.policyService.getUserPoliciesByUserName(username).subscribe(
     (data:any) => {
-      this.dataSource = new MatTableDataSource<Userpolicies>(data.context.entity);
+      this.dataSource = new MatTableDataSource<Userpolicies>(data);
       console.log(JSON.stringify(this.dataSource.filteredData));
       this.expandedElement = Policy;
       this.isPolicy = true;

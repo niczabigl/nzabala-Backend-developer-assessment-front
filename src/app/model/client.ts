@@ -4,15 +4,15 @@ export enum Role {
 }
 export class Client {
 
-    private id : string;
-	private name : String;
-	private email : String;
-	private role : Role;
+    private cliid : string;
+	private cliname : String;
+	private cliemail : String;
+	private clirole : Role;
 	
 	constructor(id : string, name : String, email : String, role : Role){
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.role = role;
+		this.cliid = id;
+		this.cliname = name;
+		this.cliemail = email;
+		this.clirole = role;
 	}
 }

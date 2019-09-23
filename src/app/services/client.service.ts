@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppConfig } from '../app-config';
 
 @Injectable({
@@ -11,10 +11,21 @@ export class ClientService {
   }
 
   public getAllClients(){
-    return this.http.get(AppConfig.API_ENDPOINT+'clients');
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'instanceId': 'instanceone'
+      })
+    }
+    return this.http.get(AppConfig.API_ENDPOINT+'clients', httpOptions)
   }
 
   public getDataFilteredByUserId(id : string){
-    return this.http.get(AppConfig.API_ENDPOINT+'clients/'+id);
+    return this.http.get(AppConfig.API_ENDPOINT+'clients/'+id, {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'instanceId': 'instanceone'
+      })
+    })
   }
 }

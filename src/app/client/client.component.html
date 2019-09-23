@@ -1,7 +1,7 @@
 <div class="buton-container">
-  <button *ngIf="!isAdmin" mat-raised-button color="primary" (click)="setAdmin()">Set me as Admin</button>
-  <button *ngIf="isAdmin" mat-raised-button color="primary" (click)="setAdmin()">Unset me as Admin</button>
-  <button *ngIf="!isUser" mat-raised-button color="accent" (click)="setUser()">Set me as User</button>
+  <button *ngIf="!isAdmin" mat-raised-button color="" (click)="setAdmin()">Set me as Admin</button>
+  <button *ngIf="isAdmin" mat-raised-button color="accent" (click)="setAdmin()">Unset me as Admin</button>
+  <button *ngIf="!isUser" mat-raised-button color="" (click)="setUser()">Set me as User</button>
   <button *ngIf="isUser" mat-raised-button color="accent" (click)="setUser()">Unset me as User</button>
   <span *ngIf="isAdmin && !isUser" >
       <span class="mat-card" style="padding:10px;">IM LOGGED AS ADMIN PERMISSONS</span>
@@ -44,10 +44,10 @@
         <div class="example-element-detail"
             [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
           <div class="example-element-diagram">
-            <div class="example-element-position"> {{element.id}} </div>
-            <div class="example-element-name"> {{element.name}} </div>
-            <div class="example-element-email"> {{element.email}} </div>
-            <div class="example-element-role"> {{element.role}} </div>
+            <div class="example-element-position"> {{element.cliid}} </div>
+            <div class="example-element-name"> {{element.cliname}} </div>
+            <div class="example-element-email"> {{element.cliemail}} </div>
+            <div class="example-element-role"> {{element.clirole}} </div>
           </div>
           <!-- <div class="example-element-description">
             {{element}}

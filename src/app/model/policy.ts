@@ -1,17 +1,17 @@
 export class Policy {
 
-    private id : string;
-	private amountInsured : number;
-	private email : String;
-    private inceptionDate : Date;
-    private installmentPayment : boolean;
-    private clientId : string;
+    private polid : string;
+	private polamountInsured : number;
+	private polemail : String;
+    private polinceptionDate : Date;
+    private polinstallmentPayment : boolean;
+    private polcliid : string;
 	
 	constructor(id : string, amountInsured : number, email : String, installmentPayment : boolean, clientId : string){
-        this.id = id;
-        this.amountInsured = amountInsured;
-		this.email = email;
-		this.installmentPayment = installmentPayment;
-		this.clientId = clientId;
+        this.polid = id;
+        this.polamountInsured = amountInsured;
+		this.polemail = email;
+		this.polinstallmentPayment = installmentPayment;
+		this.polcliid = clientId;
 	}
 }

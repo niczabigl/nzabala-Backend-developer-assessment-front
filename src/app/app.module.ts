@@ -11,7 +11,7 @@ import { FlexLayoutModule } from '@angular/flex-layout/';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { FormControl, FormGroupDirective, NgForm, Validators, NgModel, FormsModule, FormGroup , ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
@@ -23,8 +23,10 @@ import { MenuComponent } from './menu/menu.component';
 import { ClientComponent } from './client/client.component';
 import { ClientService } from './services/client.service';
 import { PolicyComponent } from './policy/policy.component';
+import { PolicyService } from './services/policy.service';
+import { PubSubService } from './services/pubsub.service';
 import { NotificationComponent } from './notification/notification.component';
-import { SnackComponent } from './notification/notification.component';
+import { GoogleloginComponent } from './googlelogin/googlelogin.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,7 @@ import { SnackComponent } from './notification/notification.component';
     ClientComponent,
     PolicyComponent,
     NotificationComponent,
-    SnackComponent
+    GoogleloginComponent
   ],
   exports: [ RouterModule ],
   imports: [
@@ -55,9 +57,11 @@ import { SnackComponent } from './notification/notification.component';
   providers: [
     AppConfig,
     ClientService,
+    PolicyService,
+    PubSubService,
     ErrorStateMatcher
   ],
   bootstrap: [AppComponent],
-  entryComponents: [SnackComponent]
+  entryComponents: []
 })
 export class AppModule{}

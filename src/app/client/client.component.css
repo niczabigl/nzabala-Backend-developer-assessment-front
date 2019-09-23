@@ -1,8 +1,9 @@
 table {
-    width: 75%;
     margin: auto;
+    min-width: 50%;
   }
-  
+
+
   tr.example-detail-row {
     height: 0;
   }
@@ -25,12 +26,13 @@ table {
   }
   
   .example-element-diagram {
-    min-width: 80px;
     border: 2px solid black;
     padding: 8px;
     font-weight: lighter;
     margin: 8px 0;
-    height: 104px;
+  }
+  .example-element-diagram > div {
+    padding: 5px;
   }
   
   .example-element-name {

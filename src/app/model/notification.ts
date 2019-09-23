@@ -1,8 +1,8 @@
 export enum NotificacionType{
-    Error = "ERROR" ,
-    Success = "SUCCESS",
-    Warning = "WARNING",
-    Info = "INFO"
+    ERROR = "ERROR" ,
+    SUCCESS = "SUCCESS",
+    WARNING = "WARNING",
+    INFO = "INFO"
 }
 export class Notificacion {
     public message: string;

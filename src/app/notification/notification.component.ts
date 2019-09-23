@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar, MatSnackBarVerticalPosition, MatSnackBarHorizontalPosition  } from '@angular/material';
-import { Notificacion, NotificacionType } from '../model/notification';
+import { NotificacionType } from '../model/notification';
+import { PubSubService } from '../services/pubsub.service'
 
 @Component({
   selector: 'app-notifications',
@@ -12,50 +13,35 @@ export class NotificationComponent implements OnInit {
   horizontalPosition: MatSnackBarHorizontalPosition = 'right';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
 
-  constructor(public snackBar: MatSnackBar) {
+  constructor(private pubsub : PubSubService, private snackBar: MatSnackBar) { 
+    this.pubsub.on('showSnackbar', this.showNotification.bind(this))
   }
 
   ngOnInit() {
   }
 
-  @Input()
-  notification : Notificacion;
-
   showNotification(message : string, type:string){
-    if((message != undefined || message != null) && message.length>0){
+    if((message != undefined || message != null) && message.length > 0){
       let backGroundColor = this.getTypeNotification(type);
-      setTimeout(() => this.snackBar.open(message,"",{
-        duration: 1500, 
+      this.snackBar.open(message, "Close", {
+        duration: 3000, 
         horizontalPosition : this.horizontalPosition,
         verticalPosition : this.verticalPosition,
         panelClass: [backGroundColor]
-      }));
+      });
     }
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    this.showNotification(changes.notification.currentValue, this.notification.getType());
   }
 
   getTypeNotification(type:string): string{
     switch(type){
-      case 'success':
+      case NotificacionType.SUCCESS:
         return 'green-snackbar';
-      case 'error':
+      case NotificacionType.ERROR:
         return 'red-snackbar';
-      case 'alert':
+      case NotificacionType.WARNING:
         return 'yellow-snackbar';
-      case 'info':
+      case NotificacionType.INFO:
         return 'blue-snackbar';
     }
   }
-}
-
-@Component({
-  selector: 'snack-notification',
-  templateUrl: './snack-notification.html',
-  styleUrls: ['./notification.component.css']
-})
-export class SnackComponent{
-
 }
