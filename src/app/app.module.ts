@@ -14,19 +14,24 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 import { RoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppConfig } from './app-config';
 
-import { MenuComponent } from './menu/menu.component';
-import { ClientComponent } from './client/client.component';
+import { MenuComponent } from './views/menu/menu.component';
+import { ClientComponent } from './views/client/client.component';
+import { PolicyComponent } from './views/policy/policy.component';
+import { NotificationComponent } from './components/notification/notification.component';
+import { GoogleloginComponent } from './components/googlelogin/googlelogin.component';
+import { DialogComponent, DialogOverviewPolicy } from './components/dialog/dialog.component';
+
 import { ClientService } from './services/client.service';
-import { PolicyComponent } from './policy/policy.component';
 import { PolicyService } from './services/policy.service';
 import { PubSubService } from './services/pubsub.service';
-import { NotificationComponent } from './notification/notification.component';
-import { GoogleloginComponent } from './googlelogin/googlelogin.component';
+
+import { Policy } from '../app/model/policy'
 
 @NgModule({
   declarations: [
@@ -35,7 +40,9 @@ import { GoogleloginComponent } from './googlelogin/googlelogin.component';
     ClientComponent,
     PolicyComponent,
     NotificationComponent,
-    GoogleloginComponent
+    GoogleloginComponent,
+    DialogComponent,
+    DialogOverviewPolicy
   ],
   exports: [ RouterModule ],
   imports: [
@@ -52,16 +59,21 @@ import { GoogleloginComponent } from './googlelogin/googlelogin.component';
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule,
   ],
   providers: [
     AppConfig,
     ClientService,
     PolicyService,
     PubSubService,
-    ErrorStateMatcher
+    ErrorStateMatcher,
+    { provide: MatDialogRef, useValue: {} },
+    { provide: Policy, useValue: {} }
   ],
   bootstrap: [AppComponent],
-  entryComponents: []
+  entryComponents: [
+    DialogOverviewPolicy
+  ]
 })
 export class AppModule{}

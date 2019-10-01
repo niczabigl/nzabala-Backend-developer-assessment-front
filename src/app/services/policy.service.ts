@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppConfig } from '../app-config';
+import { Userpolicies } from '../model/dto/userpolicies';
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +39,16 @@ export class PolicyService {
       })
     }
     return this.http.get(AppConfig.API_ENDPOINT+'policies/policy/'+id, httpOptions);
+  }
+  
+  public editUserPolicies(userPolicies : Userpolicies) {
+    console.log('editUserPolicies', userPolicies)
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'instanceId': 'instanceone'
+      })
+    }
+    return this.http.post(AppConfig.API_ENDPOINT+'policies/user/'+userPolicies.getCliid(), userPolicies, httpOptions);
   }
 }

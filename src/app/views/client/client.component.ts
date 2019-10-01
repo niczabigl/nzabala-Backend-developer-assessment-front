@@ -1,10 +1,10 @@
 import { Component, OnInit, SimpleChanges, Output } from '@angular/core';
-import { Client } from '../model/client';
-import { ClientService } from '../services/client.service';
-import { PubSubService } from '../services/pubsub.service';
+import { Client } from '../../model/client';
+import { ClientService } from '../../services/client.service';
+import { PubSubService } from '../../services/pubsub.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { MatTableDataSource } from '@angular/material';
-import { Notificacion, NotificacionType } from '../model/notification'
+import { NotificacionType } from '../../model/notification'
 
 @Component({
   selector: 'app-client',
@@ -31,10 +31,6 @@ export class ClientComponent implements OnInit {
   expandedElement: Client;
 
   filter : string;
-
-  @Output()
-  notification : Notificacion;
-
   constructor(private pubsub : PubSubService, private clientService : ClientService) { }
 
   ngOnInit() {
@@ -44,7 +40,8 @@ export class ClientComponent implements OnInit {
       (data:any) =>
       {
         console.log('DATA', data)
-        this.fullDataSource = new MatTableDataSource(data.entity);
+        this.fullDataSource = new MatTableDataSource(data);
+        console.log('fullDataSource', this.fullDataSource)
       }
     )
   }
@@ -90,9 +87,4 @@ export class ClientComponent implements OnInit {
       }
     })
   }
-//   Get user data filtered by user id -> Can be accessed by users with role "users"
-// and "admin"
-// • Get user data filtered by user name -> Can be accessed by users with role
-// "users" and "admin"
-
 }

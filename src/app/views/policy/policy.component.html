@@ -45,13 +45,13 @@
           <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
             <div  *ngFor="let e of element.policies" class="example-element-detail"
                 [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-              <div class="example-element-diagram">
+              <div (click)="getPolicyUserDetail({cliid: element.cliid, cliname: element.cliname, policies: [e]})" class="example-element-diagram">
                 <div class="example-element-position"> {{e.polid}} </div>
                 <div class="example-element-email"> {{e.polemail}} </div>
-                <div class="example-element-inceptionDate"> {{e.polinceptionDate}} </div>
-                <div class="example-element-amountInsured"> {{e.polamountInsured}} </div>
-                <div class="example-element-installmentPayment"> {{e.polinstallmentPayment}} </div>
-                <div class="example-element-clientId"> {{e.polclid}} </div>
+                <div class="example-element-inceptionDate"> {{e.polinceptiondate}} </div>
+                <div class="example-element-amountInsured"> {{e.polamountinsured}} </div>
+                <div class="example-element-installmentPayment"> {{e.polinstallmentpayment}} </div>
+                <div class="example-element-clientId"> {{e.polcliid}} </div>
               </div>
               <!-- <div class="example-element-description">
                 {{element}}

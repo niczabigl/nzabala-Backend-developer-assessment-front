@@ -2,13 +2,25 @@ import { Policy } from "../policy";
 
 export class Userpolicies {
 
-    private id : string;
-	private name : String;
-	private policies : Policy[];
+    private cliid : string;
+	private cliname : string;
+	private clipolicies : Policy[];
 	
-	constructor(id : string, name : String, policies : Policy[]){
-		this.id = id;
-		this.name = name;
-		this.policies = policies;
+	constructor(id : string, name : string, policies : Policy[]){
+		this.cliid = id;
+		this.cliname = name;
+		this.clipolicies = policies;
+	}
+
+	getCliid() : string {
+		return this.cliid
+	}
+
+	getCliname() : string {
+		return this.cliname
+	}
+
+	getClipolicies() : Policy[] {
+		return this.clipolicies
 	}
 }

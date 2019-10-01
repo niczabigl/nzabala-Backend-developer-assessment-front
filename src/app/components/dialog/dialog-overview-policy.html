@@ -1,0 +1,37 @@
+<h1 mat-dialog-title>Policy Form</h1>
+<mat-form-field>
+  <mat-label>Policies</mat-label>
+  <select matNativeControl required>
+    <option *ngFor="let policy of policies; let i = index" value="policy.polid">{{policy.polid}}</option>
+  </select>
+</mat-form-field>
+<div *ngIf="selectedPolicy" mat-dialog-content class="form-container">
+  <mat-form-field>
+    <mat-label>Policy Id:</mat-label>
+    <input class="form-control" matInput [(ngModel)]="data.policy.polid" disabled>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Policy amountinsured:</mat-label>
+    <input class="form-control" required minlenght="4" matInput [(ngModel)]="data.policy.polamountinsured" value="polamountinsured" #polamountinsured="ngModel">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Policy email:</mat-label>
+    <input matInput [(ngModel)]="data.policy.polemail" value="polemail">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Policy inceptiondate:</mat-label>
+    <input matInput [(ngModel)]="data.policy.polinceptiondate">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Policy installmentpayment:</mat-label>
+    <input matInput [(ngModel)]="data.policy.polinstallmentpayment">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Policy cliid:</mat-label>
+    <input matInput [(ngModel)]="data.policy.polcliid">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+  <button mat-raised-button color="accent" [mat-dialog-close]="data" (click)="onEditClick(data)" cdkFocusInitial>Edit</button>
+</div>

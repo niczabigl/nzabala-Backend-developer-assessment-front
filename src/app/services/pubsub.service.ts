@@ -1,5 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
-import { Notificacion, NotificacionType } from '../model/notification'
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
